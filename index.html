@@ -8,236 +8,16 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
-  <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-    :root {
-      --bordo-dark: #440C1C;
-      --bordo: #601225;
-      --crema: #F2F1D6;
-      --verde: #0A372D;
-      --bg: var(--bordo-dark);
-      --fg: var(--crema);
-    }
-
-    html, body {
-      height: 100%;
-      font-family: 'DM Sans', sans-serif;
-      background: var(--bg);
-      overflow: hidden;
-    }
-
-    .scene {
-      position: relative;
-      width: 100vw;
-      height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .bg {
-      position: absolute;
-      inset: 0;
-      background-image: url('https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=1800&q=80');
-      background-size: cover;
-      background-position: center 40%;
-      transform: scale(1.04);
-      animation: slowZoom 22s ease-out forwards;
-    }
-
-    @keyframes slowZoom {
-      from { transform: scale(1.04); }
-      to   { transform: scale(1.00); }
-    }
-
-    .overlay {
-      position: absolute;
-      inset: 0;
-      background: var(--overlay-gradient);
-    }
-
-    body.theme-bordo .bg { display: block; }
-    body.theme-verde .bg { display: block; }
-    body.theme-crema .bg { display: block; }
-
-    .grain {
-      position: absolute;
-      inset: 0;
-      opacity: 0.05;
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-      background-size: 180px;
-      pointer-events: none;
-    }
-
-    .content {
-      position: relative;
-      z-index: 2;
-      text-align: center;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      animation: fadeUp 1.4s cubic-bezier(0.16, 1, 0.3, 1) 0.3s both;
-    }
-
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(28px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
-
-    .illus-wrap {
-      width: clamp(72px, 10vw, 110px);
-      height: clamp(72px, 10vw, 110px);
-      margin-bottom: 20px;
-      position: relative;
-    }
-
-    .illus-wrap svg {
-      width: 100%;
-      height: 100%;
-      display: block;
-      position: absolute;
-      inset: 0;
-      
-    }
-
-    .illus-wrap svg .cls-1 {
-      fill: var(--fg);
-    }
-
-    .illus-wrap svg.hidden {
-      opacity: 0;
-    }
-
-    .eyebrow {
-      font-size: 11px;
-      letter-spacing: 0.22em;
-      text-transform: uppercase;
-      color: var(--fg);
-      opacity: 0.55;
-      margin-bottom: 28px;
-      font-weight: 300;
-    }
-
-    .logo-wrap {
-      width: clamp(240px, 50vw, 580px);
-      margin-bottom: 28px;
-    }
-
-    .logo-wrap svg {
-      width: 100%;
-      height: auto;
-      display: block;
-    }
-
-    .logo-wrap svg .cls-1 {
-      fill: var(--fg);
-    }
-
-    .tagline {
-      font-size: clamp(10px, 1.3vw, 13px);
-      font-weight: 300;
-      color: var(--fg);
-      opacity: 0.6;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      margin-bottom: 48px;
-    }
-
-    .divider {
-      width: 28px;
-      height: 1px;
-      background: var(--fg);
-      opacity: 0.3;
-      margin: 0 auto 40px;
-    }
-
-    .hours-block {
-      display: flex;
-      gap: 44px;
-      justify-content: center;
-      animation: fadeUp 1.4s cubic-bezier(0.16, 1, 0.3, 1) 0.65s both;
-    }
-
-    .hours-item {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 9px;
-    }
-
-    .hours-label {
-      font-size: 10px;
-      letter-spacing: 0.16em;
-      text-transform: uppercase;
-      color: var(--fg);
-      opacity: 0.4;
-      font-weight: 400;
-    }
-
-    .hours-value {
-      font-size: 17px;
-      color: var(--fg);
-      font-weight: 300;
-      letter-spacing: 0.08em;
-    }
-
-    .hours-sep {
-      width: 1px;
-      height: 36px;
-      background: var(--fg);
-      opacity: 0.18;
-      align-self: center;
-    }
-
-    .social {
-      position: absolute;
-      bottom: 34px;
-      left: 50%;
-      transform: translateX(-50%);
-      z-index: 2;
-      font-size: 10px;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      color: var(--fg);
-      opacity: 0.35;
-      font-weight: 300;
-      text-decoration: none;
-      transition: opacity 0.3s;
-      animation: fadeUp 1.4s cubic-bezier(0.16, 1, 0.3, 1) 1s both;
-      white-space: nowrap;
-    }
-
-    .social:hover { opacity: 0.75; }
-
-    .corner-tl, .corner-br {
-      position: absolute;
-      z-index: 2;
-      font-size: 10px;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      color: var(--fg);
-      opacity: 0.28;
-      font-weight: 300;
-    }
-
-    .corner-tl { top: 28px; left: 32px; }
-    .corner-br { bottom: 28px; right: 32px; }
-
-    @media (max-width: 520px) {
-      .hours-block { gap: 24px; }
-      .hours-sep { display: none; }
-      .corner-tl, .corner-br { display: none; }
-    }
-  </style>
+  <link rel="stylesheet" href="css/styles.css" />
 </head>
 <body>
+  <div id="entry-veil"></div>
   <div class="scene">
     <div class="bg"></div>
     <div class="overlay"></div>
     <div class="grain"></div>
 
-    <span class="corner-tl">Ituzaingó · Buenos Aires</span>
+    <span class="corner-tl">Bella Vista · Buenos Aires</span>
     <span class="corner-br">2026</span>
 
     <div class="content">
@@ -291,13 +71,8 @@
 
       <div class="hours-block">
         <div class="hours-item">
-          <span class="hours-label">Lunes a viernes</span>
-          <span class="hours-value">7:30 — 20:00</span>
-        </div>
-        <div class="hours-sep"></div>
-        <div class="hours-item">
-          <span class="hours-label">Sábados y domingos</span>
-          <span class="hours-value">8:00 — 21:00</span>
+          <span class="hours-label">Lunes a sábado</span>
+          <span class="hours-value">8:00 — 20:00</span>
         </div>
       </div>
     </div>
@@ -311,57 +86,6 @@
     </a>
   </div>
 
-  <script>
-    const themes = [
-      {
-        cls: 'theme-bordo',
-        bg: 'var(--bordo-dark)',
-        fg: '#F2F1D6',
-        overlay: 'linear-gradient(160deg, rgba(68,12,28,0.88) 0%, rgba(68,12,28,0.72) 50%, rgba(10,55,45,0.62) 100%)'
-      },
-      {
-        cls: 'theme-verde',
-        bg: 'var(--verde)',
-        fg: '#F2F1D6',
-        overlay: 'linear-gradient(160deg, rgba(10,55,45,0.90) 0%, rgba(10,55,45,0.75) 50%, rgba(68,12,28,0.55) 100%)'
-      },
-      {
-        cls: 'theme-crema',
-        bg: '#F2F1D6',
-        fg: '#440C1C',
-        overlay: 'linear-gradient(160deg, rgba(242,241,214,0.92) 0%, rgba(242,241,214,0.82) 50%, rgba(242,241,214,0.88) 100%)'
-      }
-    ];
-
-    function applyTheme(t) {
-      document.body.className = t.cls;
-      document.documentElement.style.setProperty('--bg', t.bg);
-      document.documentElement.style.setProperty('--fg', t.fg);
-      document.documentElement.style.setProperty('--overlay-gradient', t.overlay);
-    }
-
-    // Pick random theme on load
-    applyTheme(themes[Math.floor(Math.random() * themes.length)]);
-
-    // Illustration swap
-    const variants = ['illus-cafe', 'illus-medialuna'];
-    const solo = document.getElementById('illus-solo');
-
-    function showRandom() {
-      const next = variants[Math.floor(Math.random() * variants.length)];
-      const nextEl = document.getElementById(next);
-      solo.classList.add('hidden');
-      nextEl.classList.remove('hidden');
-      setTimeout(() => {
-        nextEl.classList.add('hidden');
-        solo.classList.remove('hidden');
-      }, 2200);
-    }
-
-    setTimeout(() => {
-      showRandom();
-      setInterval(showRandom, 5000);
-    }, 3500);
-  </script>
+  <script src="js/main.js"></script>
 </body>
 </html>
